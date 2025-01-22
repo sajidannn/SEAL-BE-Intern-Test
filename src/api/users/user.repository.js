@@ -24,7 +24,14 @@ const getUserById = async (id) => {
       name: true,
       email: true,
       avatar: true,
-      tasks: true,
+      tasks: {
+        select: {
+          id: true,
+          title: true,
+          status: true,
+          dueDate: true,
+        }
+      }
     },
   });
 

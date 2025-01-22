@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
   return res.status(500).json({
     status: 'error',
     // ubah saat di production
-    message: err.message,
+    message: 'Internal server error',
   });
 });
 

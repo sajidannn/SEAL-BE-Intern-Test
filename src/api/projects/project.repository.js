@@ -33,6 +33,16 @@ const getProjectById = async (id) => {
     where: {
       id,
     },
+    include: {
+      tasks: {
+        select: {
+          id: true,
+          title: true,
+          status: true,
+          dueDate: true,
+        }
+      }
+    }
   });
 
   return project;
