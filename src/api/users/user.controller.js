@@ -34,8 +34,8 @@ const createUserController = async (req, res, next) => {
 
 const getUserByIdController = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await getUserByIdService(id);
+    const { userId } = req.params;
+    const user = await getUserByIdService(userId);
 
     res.status(200).json({
       status: 'success',
@@ -61,13 +61,13 @@ const getAllUsersController = async (req, res, next) => {
 
 const updateUserController = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const { name } = req.body;
     const avatar = req.file;
 
     userValidator.validateUserUpdatePayload({ name, avatar });
 
-    await updateUserService({ id, name, avatar });
+    await updateUserService({ userId, name, avatar });
 
     res.status(200).json({
       status: 'success',
@@ -80,10 +80,10 @@ const updateUserController = async (req, res, next) => {
 
 const editPasswordController = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const { password, newPassword } = req.body;
 
-    await editPasswordService({ id, password, newPassword });
+    await editPasswordService({ userId, password, newPassword });
 
     res.status(200).json({
       status: 'success',
@@ -96,9 +96,9 @@ const editPasswordController = async (req, res, next) => {
 
 const deleteUserController = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
 
-    await deleteUserService(id);
+    await deleteUserService(userId);
 
     res.status(200).json({
       status: 'success',

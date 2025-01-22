@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import upload from '../../middleware/upload.middleware.js';
+import { verifyOwner } from '../../middleware/authorization.middleware.js';
 import {
   createUserController,
   getUserByIdController,
@@ -15,9 +16,9 @@ const singleUpload = upload.single('avatar');
 
 router.post('/', singleUpload, createUserController);
 router.get('/', getAllUsersController);
-router.get('/:id', getUserByIdController);
-router.put('/:id', singleUpload, updateUserController);
-router.patch('/:id', editPasswordController);
-router.delete('/:id', deleteUserController);
+router.get('/:userId', getUserByIdController);
+router.put('/:userId', verifyOwner, singleUpload, updateUserController);
+router.patch('/:userId', verifyOwner, editPasswordController);
+router.delete('/:userId', verifyOwner, deleteUserController);
 
 export default router;

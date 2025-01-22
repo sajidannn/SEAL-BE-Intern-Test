@@ -43,8 +43,8 @@ const createUserService = async ({ name, email, password, avatar }) => {
   return userId;
 };
 
-const getUserByIdService = async (id) => {
-  const user = await getUserById(id);
+const getUserByIdService = async (userId) => {
+  const user = await getUserById(userId);
 
   if (!user) {
     throw new NotFoundError('User not found');
@@ -59,8 +59,8 @@ const getAllUsersService = async () => {
   return users;
 };
 
-const updateUserService = async ({ id, name, avatar }) => {
-  const user = await getUserByIdService(id);
+const updateUserService = async ({ userId, name, avatar }) => {
+  const user = await getUserByIdService(userId);
 
   let avatarLink = user.avatar;
 
@@ -72,15 +72,15 @@ const updateUserService = async ({ id, name, avatar }) => {
   }
 
   await updateUser({
-    id,
+    id: userId,
     name,
     avatar: avatarLink,
   });
 };
 
 
-const editPasswordService = async ({ id, password, newPassword }) => {
-  const user = await getUserByIdService(id);
+const editPasswordService = async ({ userId, password, newPassword }) => {
+  const user = await getUserByIdService(userId);
   const userEmail = await getUserByEmail(user.email);
   const correctPassword = await bcrypt.compare(password, userEmail.password);
 
@@ -90,14 +90,14 @@ const editPasswordService = async ({ id, password, newPassword }) => {
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   await editPassword({
-    id,
+    id: userId,
     password: hashedPassword,
   });
 };
 
-const deleteUserService = async (id) => {
-  const user = await getUserByIdService(id);
-  await deleteUser(id);
+const deleteUserService = async (userId) => {
+  const user = await getUserByIdService(userId);
+  await deleteUser(userId);
   deleteImageByUrl(user.avatar);
 };
 

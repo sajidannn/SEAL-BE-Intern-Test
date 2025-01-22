@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import ClientError from './exception/ClientError.js';
 
 //routes
+import authRoute from './api/auth/auth.routes.js';
 import userRoute from './api/users/user.routes.js';
 
 // cors
@@ -18,8 +19,8 @@ const corsOptions = {
 };
 
 const app = express();
-app.use(cors(corsOptions));
 config();
+app.use(cors(corsOptions));
 const port = process.env.PORT || 3000;
 
 //middleware
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //endpoints
-// app.use('/auth', authRoute);
+app.use('/auth', authRoute);
 app.use('/users', userRoute);
 
 //error handling
