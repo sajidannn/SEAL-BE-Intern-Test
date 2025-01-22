@@ -1,9 +1,13 @@
 -- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN');
+
+-- CreateEnum
 CREATE TYPE "TaskStatus" AS ENUM ('PENDING', 'IN_PROGRESS', 'COMPLETED');
 
 -- CreateTable
 CREATE TABLE "users" (
     "id" VARCHAR(60) NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'USER',
     "name" VARCHAR NOT NULL,
     "email" TEXT NOT NULL,
     "password" VARCHAR NOT NULL,

@@ -19,6 +19,13 @@ const getUserById = async (id) => {
     where: {
       id,
     },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      tasks: true,
+    },
   });
 
   return user;
@@ -35,24 +42,29 @@ const getUserByEmail = async (email) => {
 };
 
 const getAllUsers = async () => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      tasks: true,
+    },
+  });
 
   return users;
 };
 
-const updateUser = async ({ id, name, avatar, tasks }) => {
-  const user = await prisma.user.update({
+const updateUser = async ({ id, name, avatar }) => {
+  await prisma.user.update({
     where: {
       id,
     },
     data: {
       name,
       avatar,
-      tasks,
     },
   });
-
-  return user;
 };
 
 const editPassword = async ({ id, password }) => {
@@ -67,13 +79,11 @@ const editPassword = async ({ id, password }) => {
 };
 
 const deleteUser = async (id) => {
-  const user = await prisma.user.delete({
+  await prisma.user.delete({
     where: {
       id,
     },
   });
-
-  return user;
 }
 
 export {
