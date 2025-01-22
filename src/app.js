@@ -5,6 +5,8 @@ import ClientError from './exception/ClientError.js';
 //routes
 import authRoute from './api/auth/auth.routes.js';
 import userRoute from './api/users/user.routes.js';
+import projectRoute from './api/projects/project.routes.js';
+import taskRoute from './api/tasks/task.routes.js';
 
 // cors
 import cors from 'cors';
@@ -31,6 +33,8 @@ app.use(cookieParser());
 //endpoints
 app.use('/auth', authRoute);
 app.use('/users', userRoute);
+app.use('/projects', projectRoute);
+app.use('/tasks', taskRoute);
 
 //error handling
 app.use((err, req, res, next) => {

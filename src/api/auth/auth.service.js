@@ -22,7 +22,7 @@ const loginUserService = async (email, password) => {
     company: user.company,
   });
 
-  return { accessToken };
+  return { accessToken, userId: user.id };
 };
 
 export { loginUserService };

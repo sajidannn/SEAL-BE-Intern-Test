@@ -30,7 +30,7 @@ const verifyOwner = (req, res, next) => {
         message: 'Token verification failed'
       });
     }
-    if (req.user.id === req.params.userId || req.user.role === 'ADMIN') {
+    if (req.user.id === req.params.userId || req.user.id === req.body.userId || req.user.role === 'ADMIN') {
       next();
     } else {
       return res.status(401).json({

@@ -18,7 +18,7 @@ const loginUserController = async (req, res, next) => {
         message: 'login user successfully',
         data: {
           access_token: user.accessToken,
-
+          userId: user.userId,
         },
       });
   } catch (error) {
